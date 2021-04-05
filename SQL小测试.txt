@@ -1,0 +1,108 @@
+1.SQL指的是？				C
+A.Strong Question Language
+B.Structured Question Language
+C.Structured Query Language
+
+2.哪个SQL语句用于从数据库中提取数据？			B
+A.EXTRACT
+B.SELECT
+C.OPEN
+D.GET
+
+3.哪条SQL语句用于更新数据库中的数据？		C
+A.MODIFY
+B.SAVE AS
+C.UPDATE
+D.SAVE
+
+4.哪条SQL语句用于删除数据库中的数据？			B
+A.COLLAPSE
+B.DELETE
+C.REMOVE
+
+5.哪条SQL语句用于在数据库中插入新的数据？				D
+A.INSERT NEW
+B.ADD RECORD
+C.ADD NEW
+D.INSERT INTO
+
+6.通过SQL，如何从"Persons"表中选取"FirstName"列？			B
+A.SELECT Persons.FirstName
+B.SELECT FirstName FROM Persons
+C.EXTRACT FirstName FROM Persons
+
+7.通过SQL，如何从"Persons"表中选取所有的列？					C
+A.SELECT [all] FROM Persons
+B.SELECT Persons
+C.SELECT * FROM Persons
+D.SELECT *.Persons
+
+8.通过SQL，如何从"Persons"表中选取"FirstName"列的值等于"Peter"的所有记录？		D
+A.SELECT [all] FROM Persons WHERE FirstName='Peter'
+B.SELECT * FROM Persons WHERE FirstName LIKE 'Peter'
+C.SELECT [all] FROM Persons WHERE FirstName LIKE 'Peter'
+D.SELECT * FROM Persons WHERE FirstName='Peter'
+
+9.通过SQL，如何从"Persons"表中选取"FirstName"列的值以"a"开头的所有记录？		A
+A.SELECT * FROM Persons WHERE FirstName LIKE 'a%'
+B.SELECT * FROM Persons WHERE FirstName='a'
+C.SELECT * FROM Persons WHERE FirstName LIKE '%a'
+D.SELECT * FROM Persons WHERE FirstName='%a%'
+
+10.请判断下列说法是否正确：当所列出的某个条件为true时，OR运算符会显示记录。当列出的所有条件为true时，AND运算符会显示记录。		A
+A.正确
+B.错误
+
+11.通过SQL，如何在表Persons中选择FirstName等于Thomas而LastName等于Carter的所有记录？			C
+A.SELECT * FROM Persons WHERE FirstName LIKE 'Thomas' AND LastName LIKE 'Carter'
+B.SELECT FirstName='Thomas', LastName='Carter' FROM Persons
+C.SELECT * FROM Persons WHERE FirstName='Thomas' AND LastName='Carter'
+
+12.通过SQL，如何按字母顺序选取Persons表中LastName介于Adams和Carter的所有记录？		A
+A.SELECT * FROM Persons WHERE LastName BETWEEN 'Adams' AND 'Carter'
+B.SELECT * FROM Persons WHERE LastName>'Adams' AND LastName<'Carter'
+C.SELECT LastName>'Adams' AND LastName<'Carter' FROM Persons
+
+13.哪条SQL语句可返回唯一不同的值？					B
+A.SELECT DIFFERENT
+B.SELECT DISTINCT
+C.SELECT UNIQUE
+
+14.哪个SQL关键词用于对结果集进行排序？			D
+A.ORDER
+B.SORT BY
+C.SORT
+D.ORDER BY
+
+15.通过SQL，如何根据"FirstName"列降序地从"Persons"表返回所有记录？			B
+A.SELECT * FROM Persons SORT 'FirstName' DESC
+B.SELECT * FROM Persons ORDER BY FirstName DESC
+C.SELECT * FROM Persons ORDER FirstName DESC
+D.SELECT * FROM Persons SORT BY 'FirstName' DESC
+
+16.通过SQL，如何向"Persons"表插入新的记录？				C
+A.INSERT ('Jimmy', 'Jackson') INTO Persons
+B.INSERT VALUES ('Jimmy', 'Jackson') INTO Persons
+C.INSERT INTO Persons VALUES ('Jimmy', 'Jackson')
+
+17.通过SQL，如何向"Persons"表中的"LastName"列插入"Wilson"？			A
+A.INSERT INTO Persons (LastName) VALUES ('Wilson')
+B.INSERT ('Wilson') INTO Persons (LastName)
+C.INSERT INTO Persons ('Wilson') INTO LastName
+
+18.如何把"Persons"表中"LastName"列的"Gates"改为"Wilson"？					B
+A.MODIFY Persons SET LastName='Wilson' WHERE LastName='Gates'
+B.UPDATE Persons SET LastName='Wilson' WHERE LastName='Gates'
+C.UPDATE Persons SET LastName='Wilson' INTO LastName='Gates'
+D.MODIFY Persons SET LastName='Wilson' INTO LastName='Gates'
+
+19.通过SQL，如何在"Persons"表中删除"FirstName"等于"Fred"的所有记录？			A
+A.DELETE FROM Persons WHERE FirstName = 'Fred'
+B.DELETE FirstName='Fred' FROM Persons
+C.DELETE ROW FirstName='Fred' FROM Persons
+
+20.通过SQL，如何返回"Persons"表中记录的数目？				D
+A.SELECT COLUMNS() FROM Persons
+B.SELECT COLUMNS(*) FROM Persons
+C.SELECT COUNT() FROM Persons
+D.SELECT COUNT(*) FROM Persons

@@ -1,0 +1,161 @@
+创建数据库
+create database 数据库名;
+查看数据库
+show databases;
+删除数据库
+drop database 数据库名;
+有关表的操作需要先进入到表所在的数据库，然后再进行表的操作
+use 数据库名;
+创建表
+create table 表名(
+列名 数据类型[ 限制条件][,
+列名 数据类型[ 限制条件],....]
+[其他限制条件,....]
+);
+查看表
+show tables;
+查看表结构
+desc 表名;
+修改表结构
+alter table 表名 add 新属性名 数据类型;
+alter table 表名 change 旧属性名 新属性名 新数据类型;
+alter table 表名 drop 要删除的属性名;
+删除表
+drop table 表名;
+添加记录
+insert into 表名[(列名,列名,...)] values(值,值,...); 数字值不用加引号，字符值需要加引号
+insert into 表名 set 列名=值,列名=值,....;
+修改记录
+update 表名 set 列名=值,列名=值,....[ where 修改条件];
+删除记录
+delete from 表名[ where 删除条件];
+truncate table 表名;
+查询记录
+select [distinct] 目标列 [as 别名]
+from 表名[,表名,....]
+[where 查询条件]
+[group by 列名 having 分组筛选条件]
+[order by 列名 [asc|desc]]
+[limit [起始偏移量,]行数]
+目标列分类：
+*(全部列)，列名，集函数，算术表达式
+asc是升序 desc是降序 默认为升序可省略不写
+修改密码
+方法一
+用户没有密码
+mysqladmin -u 用户名 password 新密码
+用户有密码
+mysqladmin -u 用户名 -p password 新密码
+回车之后需要输入原密码
+方法二
+set password for 用户名@localhost=password('新密码');
+方法三
+update user set password=password('新密码') where user='用户名';
+第三种方法生效方法：
+1)flush privileges; 2)重新启动MySQL服务
+授权(如果授权的用户不存在，自动创建用户)
+grant {all | 权限[,权限,....]}
+on {*.* | 库名.* | 库名.表名}
+to 用户名@localhost [identitied by '密码']
+[,用户名@localhost [identitied by '密码'],...]
+[with grant option];
+收权
+revoke {all | 权限[,权限,....]}
+on {*.* | 库名.* | 库名.表名}
+from 用户名@localhost[,用户名@localhost,...]
+创建用户
+insert into mysql.user(host,user,password) values('localhost','用户名',password('密码'));
+让创建用户操作生效：
+1)flush privileges; 2)重新启动MySQL服务
+删除用户
+delete from mysql.user where user='用户名';
+让删除用户操作生效：
+1)flush privileges; 2)重新启动MySQL服务
+查看用户
+select user,password,host from mysql.user;
+查看用户权限
+show grants for 用户名@localhost;
+MySQL数据的导出
+select ... from 表名 into outfile '保存导出的数据的文件名(可以包含路径)'
+[fields terminated by '列分隔符']
+[lines terminated by '行分隔符'];
+MySQL数据的导入
+load data infile '保存导出的数据的文件名(可以包含路径)' into table 表名
+[fields terminated by '列分隔符']
+[lines terminated by '行分隔符'];
+(导入时候使用的行列分隔符必须和导出时使用的相同)
+快速创建相同结构的表(结构)
+create table 新表名 like 旧表名;
+复制表数据(新旧表结构需要相同)
+insert into 新表名 select * from 旧表名;
+MySQL数据库的备份
+mysqldump -u 用户名(一般为root) -p 数据库名 > 备份文件的路径和文件名(文件名通常以.sql结尾)
+(高版本的mysqldump默认添加--opt选项，不需要在命令中再写)
+大于号(>)是输出重定向符号，将原本显示在cmd窗口中的信息保存到指定的文件中
+MySQL数据库的恢复
+1) 创建一个数据库(create database 数据库名;)
+2) mysql -u 用户名(一般为root) -p < 备份文件的路径和文件名(文件名通常以.sql结尾)
+小于号(<)是输入重定向符号，将原本要在cmd窗口中输入的信息换为从指定文件中输入
+创建索引
+create index 索引名 on 表名(列名[,列名,...]);
+(一般情况下列名只写一个)
+查看索引
+show index from 表名;
+删除索引
+drop index 索引名 on 表名;
+查询语句的where子句可使用的查询谓词分类
+比较
+确定范围 x between y and z 等价于 x>=y and x<=z
+确定集合 x in(a,b,c) 等价于 x=a or x=b or x=c
+模式匹配 _表示任意单个字符 %表示任意长度字符
+空值     is 不能写成 =
+多重条件 优先级 not > and > or
+查询条件中出现binary函数，表示字符的比较区分大小写
+排序操作时
+如果需要对多个列进行排序，写一次order by，然后顺次书写每个列名及排序方式(asc升序可省略，desc降序)，列名之间逗号隔开
+集函数
+count(*)    统计记录行数
+count(列名) 统计指定列中的记录数
+sum(列名)   指定列求和
+avg(列名)   指定列求平均值
+max(列名)   指定列求最大值
+min(列名)   指定列求最小值
+分组操作 group by 列名
+把指定的列值相同的分为一组
+having 短语
+在分组之后挑选满足条件的组
+(在带有分组子句的查询语句中，select后能直接书写的列名只能是分组列名，其他列必须使用集函数进行计算才能显示)
+多表连接查询
+需要加连接谓词
+1) 表为主表+从表 连接谓词写主表.列=从表.列 (列为同一个列)
+例如 from student,sc where student.sno=sc.sno
+2) 表为主表+主表 需要添加从表作为辅助连接，连接谓词写从表和两个主表的连接条件
+例如 from student,course
+需添加sc变为from student,course,sc where student.sno=sc.sno and course.cno=sc.cno
+3) 如果是自身连接查询，需要给表起别名进行区分
+例如 from course t1,course t2
+嵌套查询
+子查询的查询结果和外层查询的查询条件是对应的
+例如select sname from student where sno in(select sno from sc where cno='2')
+外层查询条件需要sno，所以子查询的查询结果需要查sno
+如果有多层嵌套查询，每相邻两层之间都采用上面的方法
+集合查询
+1) 并操作 把多个查询语句用union关键字连接起来，每个查询语句查询的列必须相同，并操作会自动去掉重复记录
+2) 交操作 用and连接多个查询条件的查询语句
+3) 差操作 隐含有not条件的查询语句
+例如 select * from student where sage>=19;
+等价于select * from student where not sage<19;
+limit语句
+作用为限制查询语句显示的行数，可以用于网页中的分页技术
+1) ..... limit 起始偏移量,行数
+2) ..... limit 行数
+省略号代替的是查询语句，起始偏移量默认为0，表示从第一条数据开始，起始偏移量为n时，表示从第n+1条数据开始
+左(外)连接 left [outer] join
+将左侧表中的所有数据都显示出来，右侧表中和左侧表相关的数据会显示出来，如果左侧表数据在右侧表中没有相关数据，则在右侧表中显示为NULL
+右(外)连接 right [outer] join
+将右侧表中的所有数据都显示出来，左侧表中和右侧表相关的数据会显示出来，如果右侧表数据在左侧表中没有相关数据，则在左侧表中显示为NULL
+A left join B 结果的行数和A表的行数相同
+A right join B 结果的行数和B表的行数相同
+A left join B 等价于 B right join A
+内连接 inner join
+两侧表中相对应(或相关)的数据才显示出来

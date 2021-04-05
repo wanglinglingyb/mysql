@@ -1,0 +1,50 @@
+1、select 姓名,专业名,总学分 from xs
+2、select 学号 as number,姓名 as name,总学分 as mark from xs where 专业名='计算机'
+3、select 学号,课程号,成绩*1.2 from xs_kc WHERE 学号='081101'
+4、select DISTINCT 专业名, 总学分 FROM xs
+5、select count(*) from xs
+6、select count(*) from xs where 总学分>=50
+7、select max(成绩),min(成绩) from xs_kc where 课程号='101'
+8、select sum(成绩) from xs_kc where 学号='081101'
+9、select avg(成绩) from xs_kc where 课程号='101'
+10、select * from xs
+11、select distinct 课程名,xs_kc.课程号 from kc,xs_kc where kc.课程号=xs_kc.课程号
+12、select distinct kc.课程名,xs_kc.课程号 from xs_kc join kc on xs_kc.课程号=kc.课程号	select distinct kc.课程名,xs_kc.课程号 from xs_kc join kc using(课程号)
+13、select 姓名,成绩 from xs join xs_kc on xs.学号=xs_kc.学号 where课程号='206' and 成绩>=80
+14、select xs.学号,姓名,课程名,成绩from xs join xs_kc on xs.学号=xs_kc.学号 join kc on xs_kc.课程号=kc.课程号 where 课程名='计算机基础' and 成绩>=80
+15、select a.学号,a.课程号,b.课程号,a.成绩 from xs_ kc as a join xs_kc as b on a.成绩=b.成绩 and a.学号=b.学号 and a.课程号!=b.课程号
+16、select xs_kc.*,课程名 from kc left join xs_kc on kc.课程号=xs_kc.课程号
+17、select * from xs where 学号='081101'
+18、select * from xs where 总学分>50
+19、select * from xs where 专业名='计算机' and 性别=0
+20、select 学号,姓名,性别 from xs where 姓名 like '王%'
+21、select 学号,姓名,专业名 from xs where 学号 like ‘%0_'
+22、select 学号,姓名 from xs where 姓名 like '%#_%' escape '#
+23、select * from xs where 专业名 in ('计算机','通信工程','无线电')
+24、select 姓名,学号 from xs where 学号 in (select 学号 from xs_kc where 课程号='206')
+25、select 姓名,学号,专业名 from xs where 学号 not in (select 学号 from xs_kc where 课程号 in (select 课程号 from kc where 课程名='离散数学'))
+26、select 学号 from xs_kc where 课程号 =(select 课程号 from kc where 课程名='离散数学')
+27、select 专业名 from xs group by 专业名
+28、select 专业名，count(*) from xs_kc group by 专业名
+29、select 课程号,avg(成绩)，count(学号) from xs_kc group by 课程号
+30、select 学号,avg(成绩) from xs_kc group by 学号 having  avg(成绩)>=85
+31、select 学号 from xs_kc where 成绩 >80 group by 学号 having count(*)>=2
+32、select * from xs where 专业名='通信工程' order by 出生日期
+33、select 姓名,课程名,成绩 from xs,kc,xs_kc where xs.学号=xs_kc.学号 and xs_kc.课程号=kc.课程号 and 课程名='计算机基础' and 专业名='计算机' order by 成绩 desc
+34、select * from xs order by 学号 limit 5
+35、select * from xs order by 学号 limit 3,5
+36、create view cs_kc as select xs.学号,成绩 from xs,xs_kc where xs.学号=xs_kc.学号 and 专业名='计算机' with check option
+37、select 学号,课程号 from cs_kc
+38、drop view cs_xs
+39、create index xh_xs on xs(学号(5) asc)
+40、create index xskc_in on xs_kc(学号,课程号)
+41、alther table xs add index xs_xm(姓名)
+42、show index from xh_xs
+43、drop index xh_xs on xs
+44、alter table xs drop index mark
+45、alter table xs drop primary key
+46、select xs.学号,姓名 from xs left join xs_kc on xs.学号=xs_kc.学号 where 成绩 is null
+47、select 学号,姓名 from xs where 学号 not in (select 学号 from xs_kc)
+48、select kc.课程号,课程名 from kc left join xs_kc on kc.课程号=xs_kc.课程号 where 成绩 is null
+49、select 课程号,课程名 from kc where 课程号 not in (select 课程号 from xs_kc)
+50、select 姓名,学号,总学分 from xs where 总学分>=50 and 性别='1'

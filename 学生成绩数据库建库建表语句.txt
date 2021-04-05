@@ -1,0 +1,25 @@
+create database xscj;
+use xscj;
+create table xs(
+学号 char(6) not null primary key,
+姓名 char(8) not null,
+专业名 char(10),
+性别 tinyint(1) not null,
+出生时间 date not null,
+总学分 tinyint(1),
+照片 blob,
+备注 text
+);
+create table kc(
+课程号 char(3) not null primary key,
+课程名 char(16) not null,
+开课学期 tinyint(1) not null default 1,
+学时 tinyint(1) not null,
+学分 tinyint(1)
+);
+create table xs_kc(
+学号 char(6) not null,
+课程号 char(3) not null,
+成绩 tinyint(1),
+primary key(学号,课程号)
+);
